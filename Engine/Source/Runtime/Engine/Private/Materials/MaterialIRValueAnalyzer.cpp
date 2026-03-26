@@ -414,7 +414,7 @@ static void AnalyzeScreenTexture(FMaterialIRValueAnalyzer& Analyzer, MIR::FScree
 						 ScreenTexture->Id == PPI_SceneColor);
 				}
 
-				if ((ScreenTexture->TextureKind == MIR::EScreenTexture::SceneTexture) && ((1u << ScreenTexture->Id) & FMaterialCompilationOutput::GetGBufferMask()))
+				if ((ScreenTexture->TextureKind == MIR::EScreenTexture::SceneTexture) && ((1ull << ScreenTexture->Id) & FMaterialCompilationOutput::GetGBufferMask()))
 				{
 					if (IsForwardShadingEnabled(Platform) || (IsMobilePlatform(Platform) && !IsMobileDeferredShadingEnabled(Platform)))
 					{

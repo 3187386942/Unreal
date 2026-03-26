@@ -922,7 +922,7 @@ public:
 	LAYOUT_FIELD(TMemoryImageArray<FScriptName>, UserSceneTextureInputs);
 
 	/** Bitfield of the ESceneTextures used */
-	LAYOUT_FIELD(uint32, UsedSceneTextures);
+	LAYOUT_FIELD(uint64, UsedSceneTextures);
 
 	/** Bitfield of the EPathTracingBufferTextureId used */
 	LAYOUT_FIELD(uint8, UsedPathTracingBufferTextures);
