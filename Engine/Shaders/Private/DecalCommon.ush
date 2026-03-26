@@ -125,14 +125,27 @@ void DecalCommonOutput(inout FPixelShaderIn In, inout FPixelShaderOut Out, float
 	float4 OutTarget4 = 0;
 	float4 OutTarget5 = 0;
 	float4 OutTarget6 = 0;
+	
+	// GBufferExpand
+	float4 OutTarget7 = 0;
+	float4 OutTarget8 = 0;
 
+	// #if DECAL_RENDERTARGETMODE == DECAL_RENDERTARGETMODE_GBUFFER
+	// {
+	// 	EncodeGBuffer(Data, Out.MRT[1], Out.MRT[2], Out.MRT[3], OutTarget4, OutTarget5, OutTarget6);
+	// }
+	// #elif DECAL_RENDERTARGETMODE == DECAL_RENDERTARGETMODE_GBUFFER_NONORMAL
+	// {
+	// 	EncodeGBuffer(Data, OutTarget1, Out.MRT[1], Out.MRT[2], OutTarget4, OutTarget5, OutTarget6);
+	// }
+	
 	#if DECAL_RENDERTARGETMODE == DECAL_RENDERTARGETMODE_GBUFFER
 	{
-		EncodeGBuffer(Data, Out.MRT[1], Out.MRT[2], Out.MRT[3], OutTarget4, OutTarget5, OutTarget6);
+		EncodeGBuffer(Data, Out.MRT[1], Out.MRT[2], Out.MRT[3], OutTarget4, OutTarget5, OutTarget6, OutTarget7, OutTarget8);
 	}
 	#elif DECAL_RENDERTARGETMODE == DECAL_RENDERTARGETMODE_GBUFFER_NONORMAL
 	{
-		EncodeGBuffer(Data, OutTarget1, Out.MRT[1], Out.MRT[2], OutTarget4, OutTarget5, OutTarget6);
+		EncodeGBuffer(Data, OutTarget1, Out.MRT[1], Out.MRT[2], OutTarget4, OutTarget5, OutTarget6, OutTarget7, OutTarget8);
 	}
 	#endif // DECAL_RENDERTARGETMODE
 

@@ -32,6 +32,10 @@
 #define SceneTexturesStruct_ScreenSpaceAOTextureSampler SceneTexturesStruct.PointClampSampler
 #define SceneTexturesStruct_SGGXTextureSampler SceneTexturesStruct.PointClampSampler
 
+// mds GBufferExpand
+#define SceneTexturesStruct_GBufferExpand0TextureSampler SceneTexturesStruct.PointClampSampler
+#define SceneTexturesStruct_GBufferExpand1TextureSampler SceneTexturesStruct.PointClampSampler
+
 float3 CalcSceneColor(float2 ScreenUV)
 {
 #if SCENE_TEXTURES_DISABLED

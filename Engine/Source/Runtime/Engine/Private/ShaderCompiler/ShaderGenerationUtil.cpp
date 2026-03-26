@@ -506,6 +506,13 @@ static FString GetSlotTextName(EGBufferSlot Slot)
 		return TEXT("IrisNormal");
 	case GBS_SeparatedMainDirLight:
 		return TEXT("SeparatedMainDirLight");
+		
+	// mds GBufferExpand
+	case GBS_GBufferExpand0:
+		return TEXT("GBufferExpand0");
+	case GBS_GBufferExpand1:
+		return TEXT("GBufferExpand1");
+		
 	default:
 		break;
 	};
@@ -1829,6 +1836,10 @@ static void DetermineUsedMaterialSlots(
 	if (Mat.MATERIAL_SHADINGMODEL_DEFAULT_LIT)
 	{
 		SetStandardGBufferSlots(Slots, bWriteEmissive, bHasTangent, bHasVelocity, bWritesVelocity, bHasStaticLighting, bIsSubstrateMaterial, bIsSubstrateNewGBuffer);
+		
+		// mds GBufferExpand
+		Slots[GBS_GBufferExpand0] = GetGBufferSlotUsage(bUseCustomData);
+		Slots[GBS_GBufferExpand1] = GetGBufferSlotUsage(bUseCustomData);
 	}
 
 	if (Mat.MATERIAL_SHADINGMODEL_SUBSURFACE)
@@ -1886,6 +1897,10 @@ static void DetermineUsedMaterialSlots(
 		if (Mat.SINGLE_LAYER_WATER_SEPARATED_MAIN_LIGHT)
 		{
 			Slots[GBS_SeparatedMainDirLight] = EGBufferSlotUsage::Written;
+			
+			// mds GBufferExpand
+			Slots[GBS_GBufferExpand0] = GetGBufferSlotUsage(bUseCustomData);
+			Slots[GBS_GBufferExpand1] = GetGBufferSlotUsage(bUseCustomData);
 		}
 	}
 

@@ -248,11 +248,19 @@ static void SetupMobileGBufferFlags(FGBufferBindings GBufferBindings[GBL_Num], b
 		Bindings.GBufferD.Flags |= AddFlags;
 		Bindings.GBufferE.Flags |= AddFlags;
 		
+		// mds GBufferExpand
+		Bindings.GBufferExpand0.Flags |= AddFlags;
+		Bindings.GBufferExpand1.Flags |= AddFlags;
+		
 		Bindings.GBufferA.Flags &= (~RemoveFlags);
 		Bindings.GBufferB.Flags &= (~RemoveFlags);
 		Bindings.GBufferC.Flags &= (~RemoveFlags);
 		Bindings.GBufferD.Flags &= (~RemoveFlags);
 		Bindings.GBufferE.Flags &= (~RemoveFlags);
+		
+		// mds GBufferExpand
+		Bindings.GBufferExpand0.Flags &= (~RemoveFlags);
+		Bindings.GBufferExpand1.Flags &= (~RemoveFlags);
 
 		// Input attachments with PF_R8G8B8A8 has better support on mobile than PF_B8G8R8A8
 		auto OverrideB8G8R8A8 = [](FGBufferBinding& Binding) { if (Binding.Format == PF_B8G8R8A8) Binding.Format = PF_R8G8B8A8; };
@@ -261,6 +269,10 @@ static void SetupMobileGBufferFlags(FGBufferBindings GBufferBindings[GBL_Num], b
 		OverrideB8G8R8A8(Bindings.GBufferC);
 		OverrideB8G8R8A8(Bindings.GBufferD);
 		OverrideB8G8R8A8(Bindings.GBufferE);
+		
+		// mds GBufferExpand
+		OverrideB8G8R8A8(Bindings.GBufferExpand0);
+		OverrideB8G8R8A8(Bindings.GBufferExpand1);
 	}
 }
 
@@ -324,6 +336,11 @@ void FSceneTexturesConfig::Init(const FSceneTexturesConfigInitSettings& InitSett
 				BindingCache.Bindings[Layout].GBufferC = FindGBufferBindingByName(GBufferInfo, TEXT("GBufferC"), ShaderPlatform);
 				BindingCache.Bindings[Layout].GBufferD = FindGBufferBindingByName(GBufferInfo, TEXT("GBufferD"), ShaderPlatform);
 				BindingCache.Bindings[Layout].GBufferE = FindGBufferBindingByName(GBufferInfo, TEXT("GBufferE"), ShaderPlatform);
+				
+				// mds GBufferExpand
+				BindingCache.Bindings[Layout].GBufferExpand0 = FindGBufferBindingByName(GBufferInfo, TEXT("GBufferExpand0"), ShaderPlatform);
+				BindingCache.Bindings[Layout].GBufferExpand1 = FindGBufferBindingByName(GBufferInfo, TEXT("GBufferExpand1"), ShaderPlatform);
+				
 				BindingCache.Bindings[Layout].GBufferVelocity = FindGBufferBindingByName(GBufferInfo, TEXT("Velocity"), ShaderPlatform);
 
 				// Remove DisableDCC flag for velocity. Only Nanite fast tile clear sets this flag currently
@@ -395,6 +412,11 @@ uint32 FSceneTexturesConfig::GetGBufferRenderTargetsInfo(FGraphicsPipelineRender
 		IncludeBindingIfValid(Bindings.GBufferC);
 		IncludeBindingIfValid(Bindings.GBufferD);
 		IncludeBindingIfValid(Bindings.GBufferE);
+		
+		// mds GBufferExpand
+		IncludeBindingIfValid(Bindings.GBufferExpand0);
+		IncludeBindingIfValid(Bindings.GBufferExpand1);
+		
 		IncludeBindingIfValid(Bindings.GBufferVelocity);
 	}
 	// Forward shading path. Simple forward shading does not use velocity.

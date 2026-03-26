@@ -75,9 +75,13 @@ enum ESceneTextureId : int
 	PPI_Anisotropy UMETA(DisplayName = "Anisotropy"),
 	/** Whether the pixel is marked as belonging to an opaque first person primitive, single channel (GBuffer) */
 	PPI_IsFirstPerson UMETA(DisplayName = "IsFirstPerson"),
+	
+	// mds GBufferExpand
+	PPI_GBufferExpand0 UMETA(DisplayName="GBufferExpand0"),
+	PPI_GBufferExpand1 UMETA(DisplayName="GBufferExpand1"),
 
 	/** Used internally for user scene texture inputs.  Later remapped to PPI_PostProcessInput0-6 in the shader via procedurally generated defines. */
-	PPI_UserSceneTexture0 = 32 UMETA(Hidden),
+	PPI_UserSceneTexture0 = 34 UMETA(Hidden),
 	PPI_UserSceneTexture1 UMETA(Hidden),
 	PPI_UserSceneTexture2 UMETA(Hidden),
 	PPI_UserSceneTexture3 UMETA(Hidden),

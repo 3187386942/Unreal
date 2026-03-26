@@ -134,6 +134,11 @@ struct FSceneTextures : public FMinimalSceneTextures
 	FRDGTextureRef GBufferD{};
 	FRDGTextureRef GBufferE{};
 	FRDGTextureRef GBufferF{};
+	
+	// mds GBufferExpand
+	FRDGTextureRef GBufferExpand0{};
+	FRDGTextureRef GBufferExpand1{};
+	
 	FRDGTextureRef GBufferSGGX{};
 
 	// Additional Buffer texture used by mobile

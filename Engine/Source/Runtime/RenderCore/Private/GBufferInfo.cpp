@@ -261,6 +261,10 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	int32 TargetGBufferF = -1;
 	int32 TargetVelocity = -1;
 	int32 TargetSeparatedMainDirLight = -1;
+	
+	// mds GBufferExpand
+	int32 TargetGBufferExpand0 = -1;
+	int32 TargetGBufferExpand1 = -1;
 
 	// Substrate outputs material data through UAV. Only SceneColor, PrecalcShadow & Velocity data are still emitted through RenderTargets
 	if (Substrate::IsSubstrateEnabled() && !Substrate::IsSubstrateBlendableGBufferEnabled(Params.ShaderPlatform))
@@ -336,6 +340,9 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		Info.NumTargets = Params.bHasPrecShadowFactor ? 7 : 6;
 	}
 
+	// mds GBufferExpand
+	Info.NumTargets += 2;
+	
 	// good to see the quality loss due to precision in the gbuffer
 	const bool bHighPrecisionGBuffers = (Params.LegacyFormatIndex >= EGBufferFormat_Force16BitsPerChannel);
 	// good to profile the impact of non 8 bit formats
@@ -377,6 +384,10 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 			TargetGBufferE = 5;
 			Info.Targets[5].Init(GBT_Unorm_8_8_8_8, TEXT("GBufferE"), false, true, true, true);
 		}
+		
+		// mds GBufferExpand
+		TargetGBufferExpand0 = TargetGBufferE == -1 ? 5 : TargetGBufferE + 1;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 5 : TargetGBufferE + 2;
 	}
 	else if (Params.bHasVelocity)
 	{
@@ -392,6 +403,10 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 			TargetGBufferE = 6;
 			Info.Targets[6].Init(GBT_Unorm_8_8_8_8, TEXT("GBufferE"), false, true, true, false);
 		}
+		
+		// mds GBufferExpand
+		TargetGBufferExpand0 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
 	}
 	else if (Params.bHasTangent)
 	{
@@ -404,12 +419,21 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 			TargetGBufferE = 6;
 			Info.Targets[6].Init(GBT_Unorm_8_8_8_8, TEXT("GBufferE"), false, true, true, true);
 		}
+		
+		// mds GBufferExpand
+		TargetGBufferExpand0 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
 	}
 	else
 	{
 		// should never hit this path
 		check(0);
 	}
+	
+	// mds GBufferExpand
+	Info.Targets[TargetGBufferExpand0].Init(GBT_Float_16_16_16_16, TEXT("GBufferExpand0"), false, true, true, true);
+	Info.Targets[TargetGBufferExpand1].Init(GBT_Float_16_16_16_16, TEXT("GBufferExpand1"), false, true, true, true);
+
 
 	// SLW never uses GBufferD (CustomData) and we want to tightly pack RTVs so there's space for UAVs after the RTV range (D3D11.0 only supports a total of 8 RTVs and UAVs and they must have non-overlapping ranges).
 	TargetSeparatedMainDirLight = TargetGBufferD;
@@ -539,6 +563,19 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	Info.Slots[GBS_CustomData].Packing[1] = FGBufferPacking(TargetGBufferD, 1, 1);
 	Info.Slots[GBS_CustomData].Packing[2] = FGBufferPacking(TargetGBufferD, 2, 2);
 	Info.Slots[GBS_CustomData].Packing[3] = FGBufferPacking(TargetGBufferD, 3, 3);
+	
+	// mds GBufferExoand
+	Info.Slots[GBS_GBufferExpand0] = FGBufferItem(GBS_GBufferExpand0, GBC_Raw_Float_16_16_16_16, GBCH_Both);
+	Info.Slots[GBS_GBufferExpand0].Packing[0] = FGBufferPacking(TargetGBufferExpand0, 0, 0);
+	Info.Slots[GBS_GBufferExpand0].Packing[1] = FGBufferPacking(TargetGBufferExpand0, 1, 1);
+	Info.Slots[GBS_GBufferExpand0].Packing[2] = FGBufferPacking(TargetGBufferExpand0, 2, 2);
+	Info.Slots[GBS_GBufferExpand0].Packing[3] = FGBufferPacking(TargetGBufferExpand0, 3, 3);
+	
+	Info.Slots[GBS_GBufferExpand1] = FGBufferItem(GBS_GBufferExpand1, GBC_Raw_Float_16_16_16_16, GBCH_Both);
+	Info.Slots[GBS_GBufferExpand1].Packing[0] = FGBufferPacking(TargetGBufferExpand1, 0, 0);
+	Info.Slots[GBS_GBufferExpand1].Packing[1] = FGBufferPacking(TargetGBufferExpand1, 1, 1);
+	Info.Slots[GBS_GBufferExpand1].Packing[2] = FGBufferPacking(TargetGBufferExpand1, 2, 2);
+	Info.Slots[GBS_GBufferExpand1].Packing[3] = FGBufferPacking(TargetGBufferExpand1, 3, 3);
 
 	// Special water output
 	if (Params.bHasSingleLayerWaterSeparatedMainLight)

@@ -2980,6 +2980,11 @@ struct FFastVramConfig
 	ETextureCreateFlags GBufferE;
 	ETextureCreateFlags GBufferF;
 	ETextureCreateFlags GBufferVelocity;
+	
+	// mds GBufferExpand
+	ETextureCreateFlags GBufferExpand0;
+	ETextureCreateFlags GBufferExpand1;
+	
 	ETextureCreateFlags HZB;
 	ETextureCreateFlags SceneDepth;
 	ETextureCreateFlags SceneColor;

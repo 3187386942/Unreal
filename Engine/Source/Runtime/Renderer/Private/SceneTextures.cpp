@@ -745,6 +745,16 @@ void FSceneTextures::InitializeViewFamily(FRDGBuilder& GraphBuilder, FViewFamily
 			const FRDGTextureDesc Desc = FRDGTextureDesc::CreateRenderTargetTextureDesc(Config.Extent, GBufferFPixelFormat, FClearValueBinding({ 0.5f, 0.5f, 0.5f, 0.5f }), GBufferFCreateFlags | FlagsToAdd, Config.bRequireMultiView, Config.MobileMultiViewRenderTargetNumLayers);
 			SceneTextures.GBufferF = GraphBuilder.CreateTexture(Desc, TEXT("GBufferF"));
 		}
+		
+		// mds GBufferExpand
+		if (Bindings.GBufferExpand0.Index >= 0) {
+			const FRDGTextureDesc Desc = FRDGTextureDesc::CreateRenderTargetTextureDesc(Config.Extent, Bindings.GBufferExpand0.Format, FClearValueBinding::Transparent, Bindings.GBufferExpand0.Flags | FlagsToAdd | GFastVRamConfig.GBufferExpand0, Config.bRequireMultiView, Config.MobileMultiViewRenderTargetNumLayers);
+			SceneTextures.GBufferExpand0 = GraphBuilder.CreateTexture(Desc, TEXT("GBufferExpand0"));
+		}
+		if (Bindings.GBufferExpand1.Index >= 0) {
+			const FRDGTextureDesc Desc = FRDGTextureDesc::CreateRenderTargetTextureDesc(Config.Extent, Bindings.GBufferExpand1.Format, FClearValueBinding::Transparent, Bindings.GBufferExpand1.Flags | FlagsToAdd | GFastVRamConfig.GBufferExpand1, Config.bRequireMultiView, Config.MobileMultiViewRenderTargetNumLayers);
+			SceneTextures.GBufferExpand1 = GraphBuilder.CreateTexture(Desc, TEXT("GBufferExpand1"));
+		}
 	}
 
 	if (Config.bRequiresDepthAux)
@@ -881,6 +891,11 @@ uint32 FSceneTextures::GetGBufferRenderTargets(
 			{ TEXT("GBufferC"), GBufferC, Bindings.GBufferC.Index },
 			{ TEXT("GBufferD"), GBufferD, Bindings.GBufferD.Index },
 			{ TEXT("GBufferE"), GBufferE, Bindings.GBufferE.Index },
+			
+			// mds GBufferExpand
+			{ TEXT("GBufferExpand0"), GBufferExpand0, Bindings.GBufferExpand0.Index },
+			{ TEXT("GBufferExpand1"), GBufferExpand1, Bindings.GBufferExpand1.Index },
+			
 			{ TEXT("Velocity"), Velocity, Bindings.GBufferVelocity.Index }
 		};
 
@@ -1049,6 +1064,11 @@ FRDGTextureRef GetSceneTexture(const FSceneTextures& SceneTextures, ESceneTextur
 	case ESceneTexture::GBufferD:       return SceneTextures.GBufferD;
 	case ESceneTexture::GBufferE:       return SceneTextures.GBufferE;
 	case ESceneTexture::GBufferF:       return SceneTextures.GBufferF;
+		
+	// mds GBufferExpand
+	case ESceneTexture::GBufferExpand0:       return SceneTextures.GBufferExpand0;
+	case ESceneTexture::GBufferExpand1:       return SceneTextures.GBufferExpand1;
+		
 	case ESceneTexture::GBufferSGGX:	return SceneTextures.GBufferSGGX;
 	case ESceneTexture::SSAO:           return SceneTextures.ScreenSpaceAO;
 	case ESceneTexture::CustomDepth:	return SceneTextures.CustomDepth.Depth;
@@ -1078,6 +1098,11 @@ void SetupSceneTextureUniformParameters(
 	SceneTextureParameters.GBufferETexture = SystemTextures.Black;
 	SceneTextureParameters.GBufferFTexture = SystemTextures.MidGrey;
 	SceneTextureParameters.GBufferVelocityTexture = SystemTextures.Black;
+	
+	// mds GBufferExpand
+	SceneTextureParameters.GBufferExpand0Texture = SystemTextures.Black;
+	SceneTextureParameters.GBufferExpand1Texture = SystemTextures.Black;
+	
 	SceneTextureParameters.GBufferSGGXTexture = SystemTextures.Black;
 	SceneTextureParameters.ScreenSpaceAOTexture = GetScreenSpaceAOFallback(SystemTextures);
 	SceneTextureParameters.CustomDepthTexture = SystemTextures.DepthDummy;
@@ -1128,6 +1153,16 @@ void SetupSceneTextureUniformParameters(
 			if (EnumHasAnyFlags(SetupMode, ESceneTextureSetupMode::GBufferF) && HasBeenProduced(SceneTextures->GBufferF))
 			{
 				SceneTextureParameters.GBufferFTexture = SceneTextures->GBufferF;
+			}
+			
+			// mds GbufferExpand
+			if (EnumHasAnyFlags(SetupMode, ESceneTextureSetupMode::GbufferExpand0) && HasBeenProduced(SceneTextures->GBufferExpand0))
+			{
+				SceneTextureParameters.GBufferExpand0Texture = SceneTextures->GBufferExpand0;
+			}
+			if (EnumHasAnyFlags(SetupMode, ESceneTextureSetupMode::GbufferExpand1) && HasBeenProduced(SceneTextures->GBufferExpand1))
+			{
+				SceneTextureParameters.GBufferExpand1Texture = SceneTextures->GBufferExpand1;
 			}
 		}
 

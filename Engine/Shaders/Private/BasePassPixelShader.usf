@@ -906,6 +906,10 @@ void FPixelShaderInOut_MainPS(
 	// PreShadowFactor
 	float4 OutGBufferE = 0;
 	
+	// mds GBufferExpand
+	float4 OutGBufferExpand0 = 0;
+	float4 OutGBufferExpand1 = 0;
+	
 	FMaterialPixelParameters MaterialParameters = GetMaterialPixelParameters(Interpolants, In.SvPosition);
 	FPixelMaterialInputs PixelMaterialInputs;
 
@@ -2359,8 +2363,12 @@ void FPixelShaderInOut_MainPS(
 			float4 OutGBufferA = 0;
 			float4 OutGBufferB = 0;
 			float4 OutGBufferC = 0;
+			
+			// mds GBufferExpand
+			float4 OutGbufferExpand0 = 0;
+			float4 OutGbufferExpand1 = 0;
 
-			EncodeGBuffer(GBuffer, OutGBufferA, OutGBufferB, OutGBufferC, OutGBufferD, OutGBufferE, OutVelocity, QuantizationBias);
+			EncodeGBuffer(GBuffer, OutGBufferA, OutGBufferB, OutGBufferC, OutGBufferD, OutGBufferE, OutVelocity, OutGbufferExpand0, OutGbufferExpand0, QuantizationBias);
 
 			Out.MRT[1] = OutGBufferA;
 			Out.MRT[2] = OutGBufferB;
@@ -2375,6 +2383,10 @@ void FPixelShaderInOut_MainPS(
 			#if GBUFFER_HAS_PRECSHADOWFACTOR
 				Out.MRT[GBUFFER_HAS_VELOCITY ? 6 : 5] = OutGBufferE;
 			#endif
+			
+			// mds GBufferExpand
+			Out.MRT[6] = OutGBufferExpand0;
+			Out.MRT[7] = OutGBufferExpand1;
 		}
 		#endif
 

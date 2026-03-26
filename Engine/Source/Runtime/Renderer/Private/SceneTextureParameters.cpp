@@ -30,6 +30,11 @@ FSceneTextureParameters GetSceneTextureParameters(FRDGBuilder& GraphBuilder, con
 	Parameters.GBufferDTexture = GetIfProduced(SceneTextures.GBufferD);
 	Parameters.GBufferETexture = GetIfProduced(SceneTextures.GBufferE);
 	Parameters.GBufferFTexture = GetIfProduced(SceneTextures.GBufferF, SystemTextures.MidGrey);
+	
+	// mds GBuffer
+	Parameters.GBufferExpand0Texture = GetIfProduced(SceneTextures.GBufferExpand0);
+	Parameters.GBufferExpand1Texture = GetIfProduced(SceneTextures.GBufferExpand0);
+	
 	Parameters.GBufferSGGXTexture = GetIfProduced(SceneTextures.GBufferSGGX);
 
 	return Parameters;
@@ -50,6 +55,12 @@ FSceneTextureParameters GetSceneTextureParameters(FRDGBuilder& GraphBuilder, TRD
 	Parameters.GBufferETexture = (*SceneTextureUniformBuffer)->GBufferETexture;
 	Parameters.GBufferFTexture = (*SceneTextureUniformBuffer)->GBufferFTexture;
 	Parameters.GBufferVelocityTexture = (*SceneTextureUniformBuffer)->GBufferVelocityTexture;
+	
+	// mds GBufferExpand
+	Parameters.GBufferExpand0Texture = (*SceneTextureUniformBuffer)->GBufferExpand0Texture;
+	Parameters.GBufferExpand1Texture = (*SceneTextureUniformBuffer)->GBufferExpand1Texture;
+	
+	
 	Parameters.GBufferSGGXTexture = (*SceneTextureUniformBuffer)->GBufferSGGXTexture;
 	return Parameters;
 }

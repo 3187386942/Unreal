@@ -278,11 +278,15 @@ FSSDCompressedSceneInfos SampleCompressedSceneMetadata(
 		float4 GBufferE = 0.0;
 		float4 GBufferF = 0.5f;
 		float4 GBufferVelocity = 0.0;
+		
+		// mds GBufferExpand
+		float4 GbufferExpand0 = float4(1, 0, 0, 1);
+		float4 GbufferExpand1 = float4(0, 1, 0, 1);
 
 		bool bGetNormalizedNormal = false;
 
 		GBufferData = DecodeGBufferData(
-			GBufferA, GBufferB, GBufferC, GBufferD, GBufferE, GBufferF, GBufferVelocity,
+			GBufferA, GBufferB, GBufferC, GBufferD, GBufferE, GBufferF, GBufferVelocity, GbufferExpand0, GbufferExpand1,
 			CustomNativeDepth, CustomStencil, SceneDepth, bGetNormalizedNormal, CheckerFromSceneColorUV(BufferUV));
 	}
 	else

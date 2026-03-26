@@ -40,6 +40,11 @@ enum EGBufferSlot
 	GBS_SubsurfaceProfileX, // R8
 	GBS_IrisNormal, // RG8
 	GBS_SeparatedMainDirLight, // RGB 11.11.10
+	
+	// mds GBufferExpand
+	GBS_GBufferExpand0,
+	GBS_GBufferExpand1,
+	
 	GBS_Num
 };
 
@@ -277,11 +282,15 @@ struct FGBufferBindings
 	FGBufferBinding GBufferD;
 	FGBufferBinding GBufferE;
 	FGBufferBinding GBufferVelocity;
+	
+	// mds GBufferExpand
+	FGBufferBinding GBufferExpand0;
+	FGBufferBinding GBufferExpand1;
 };
 
 struct FGBufferInfo
 {
-	static const int MaxTargets = 8;
+	static const int MaxTargets = 8 + 2;  // mds GBufferExpand拓展两个GBuffer
 
 	int32 NumTargets;
 	FGBufferTarget Targets[MaxTargets];

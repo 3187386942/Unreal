@@ -25,6 +25,11 @@ BEGIN_GLOBAL_SHADER_PARAMETER_STRUCT(FSceneTextureUniformParameters, ENGINE_API)
 	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, GBufferETexture)
 	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, GBufferFTexture)
 	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, GBufferVelocityTexture)
+
+	// mds GBufferExpand
+	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, GBufferExpand0Texture)
+	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, GBufferExpand1Texture)
+
 	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, GBufferSGGXTexture)
 
 	// SSAO

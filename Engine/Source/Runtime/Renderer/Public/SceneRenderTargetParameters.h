@@ -20,6 +20,11 @@ enum class ESceneTexture
 	GBufferD,
 	GBufferE,
 	GBufferF,
+	
+	// mds GBufferExpand
+	GBufferExpand0,
+	GBufferExpand1,
+	
 	GBufferSGGX,
 	SSAO,
 	CustomDepth,
@@ -27,7 +32,7 @@ enum class ESceneTexture
 
 RENDERER_API FRDGTextureRef GetSceneTexture(const FSceneTextures& SceneTextures, ESceneTexture InSceneTexture);
 
-enum class ESceneTextureSetupMode : uint32
+enum class ESceneTextureSetupMode : uint64
 {
 	None			= 0,
 	SceneColor		= 1 << 0,
@@ -42,7 +47,9 @@ enum class ESceneTextureSetupMode : uint32
 	SSAO			= 1 << 9,
 	CustomDepth		= 1 << 10,
 	SGGX			= 1 << 11,
-	GBuffers		= GBufferA | GBufferB | GBufferC | GBufferD | GBufferE | GBufferF | SGGX,
+	GbufferExpand0	= 1 << 12,
+	GbufferExpand1	= 1 << 13,
+	GBuffers		= GBufferA | GBufferB | GBufferC | GBufferD | GBufferE | GBufferF | SGGX | GbufferExpand0 | GbufferExpand1,
 	All				= SceneColor | SceneDepth | SceneVelocity | GBuffers | SSAO | CustomDepth
 };
 ENUM_CLASS_FLAGS(ESceneTextureSetupMode);

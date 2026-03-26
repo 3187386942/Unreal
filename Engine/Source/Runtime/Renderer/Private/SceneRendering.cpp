@@ -509,6 +509,11 @@ FASTVRAM_CVAR(GBufferD, 0);
 FASTVRAM_CVAR(GBufferE, 0);
 FASTVRAM_CVAR(GBufferF, 0);
 FASTVRAM_CVAR(GBufferVelocity, 0);
+
+// mds GBufferExpand
+FASTVRAM_CVAR(GBufferExpand0, 0);
+FASTVRAM_CVAR(GBufferExpand1, 0);
+
 FASTVRAM_CVAR(HZB, 1);
 FASTVRAM_CVAR(SceneDepth, 1);
 FASTVRAM_CVAR(SceneColor, 1);
@@ -713,6 +718,11 @@ void FFastVramConfig::Update()
 	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_GBufferE, GBufferE);
 	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_GBufferF, GBufferF);
 	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_GBufferVelocity, GBufferVelocity);
+	
+	// mds GBufferExpand
+	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_GBufferExpand0, GBufferExpand0);
+	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_GBufferExpand1, GBufferExpand1);
+	
 	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_HZB, HZB);
 	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_SceneDepth, SceneDepth);
 	bDirty |= UpdateTextureFlagFromCVar(CVarFastVRam_SceneColor, SceneColor);

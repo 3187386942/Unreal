@@ -878,28 +878,30 @@ public:
 	bool RequiresSceneColorCopy() const { return IsSceneTextureUsed(PPI_SceneColor); }
 
 	/** Returns mask for all scene textures that are from the GBuffer */
-	static uint32 GetGBufferMask()
+	static uint64 GetGBufferMask()
 	{
 		return
-			(1u << PPI_DiffuseColor) |
-			(1u << PPI_SpecularColor) |
-			(1u << PPI_SubsurfaceColor) |
-			(1u << PPI_BaseColor) |
-			(1u << PPI_Specular) |
-			(1u << PPI_Metallic) |
-			(1u << PPI_WorldNormal) |
-			(1u << PPI_WorldTangent) |
-			(1u << PPI_Opacity) |
-			(1u << PPI_Roughness) |
-			(1u << PPI_Anisotropy) |
-			(1u << PPI_MaterialAO) |
-			(1u << PPI_DecalMask) |
-			(1u << PPI_ShadingModelColor) |
-			(1u << PPI_ShadingModelID) |
-			(1u << PPI_StoredBaseColor) |
-			(1u << PPI_StoredSpecular) |
-			(1u << PPI_Velocity) |
-			(1u << PPI_IsFirstPerson);
+			(1ull << PPI_DiffuseColor) |
+			(1ull << PPI_SpecularColor) |
+			(1ull << PPI_SubsurfaceColor) |
+			(1ull << PPI_BaseColor) |
+			(1ull << PPI_Specular) |
+			(1ull << PPI_Metallic) |
+			(1ull << PPI_WorldNormal) |
+			(1ull << PPI_WorldTangent) |
+			(1ull << PPI_Opacity) |
+			(1ull << PPI_Roughness) |
+			(1ull << PPI_Anisotropy) |
+			(1ull << PPI_MaterialAO) |
+			(1ull << PPI_DecalMask) |
+			(1ull << PPI_ShadingModelColor) |
+			(1ull << PPI_ShadingModelID) |
+			(1ull << PPI_StoredBaseColor) |
+			(1ull << PPI_StoredSpecular) |
+			(1ull << PPI_Velocity) |
+			(1ull << PPI_IsFirstPerson) |
+			(1ull << PPI_GBufferExpand0) |
+			(1ull << PPI_GBufferExpand1);
 	}
 
 	/** true if the material uses any GBuffer textures */

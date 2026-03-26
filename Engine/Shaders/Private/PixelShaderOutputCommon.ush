@@ -99,6 +99,15 @@ void MainPS
 #if PIXELSHADEROUTPUT_MRT7
 		, out float4 OutTarget7 : SV_Target7
 #endif
+		
+// mds GBufferExpand
+#if PIXELSHADEROUTPUT_MRT8
+		, out float4 OutTarget8 : SV_Target8
+#endif
+
+#if PIXELSHADEROUTPUT_MRT9
+		, out float4 OutTarget9 : SV_Target9
+#endif
 
 #endif // SUBSTRATE_OUTPUT_GBUFFER
 
@@ -214,7 +223,16 @@ void MainPS
 #if PIXELSHADEROUTPUT_MRT7
 	OutTarget7 = PixelShaderOut.MRT[7];
 #endif
-
+	
+// mds GBufferExpand
+#if PIXELSHADEROUTPUT_MRT8
+	OutTarget8 = PixelShaderOut.MRT[8];
+#endif
+	
+#if PIXELSHADEROUTPUT_MRT9
+	OutTarget9 = PixelShaderOut.MRT[9];
+#endif
+	
 #endif // SUBSTRATE_OUTPUT_GBUFFER
 
 #if PIXELSHADEROUTPUT_COVERAGE || PIXELSHADEROUTPUT_A2C
