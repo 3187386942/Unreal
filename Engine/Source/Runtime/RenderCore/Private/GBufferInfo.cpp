@@ -437,8 +437,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	// mds GBufferExpand
 	Info.Targets[TargetGBufferExpand0].Init(GBT_Float_16_16_16_16, TEXT("GBufferExpand0"), false, true, true, true);
 	Info.Targets[TargetGBufferExpand1].Init(GBT_Float_16_16_16_16, TEXT("GBufferExpand1"), false, true, true, true);
-
-
+	
 	// SLW never uses GBufferD (CustomData) and we want to tightly pack RTVs so there's space for UAVs after the RTV range (D3D11.0 only supports a total of 8 RTVs and UAVs and they must have non-overlapping ranges).
 	TargetSeparatedMainDirLight = TargetGBufferD;
 

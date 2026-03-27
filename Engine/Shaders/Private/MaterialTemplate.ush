@@ -97,8 +97,8 @@
 #define PPI_IsFirstPerson 31
 
 // mds GBufferExpand
-#define PPI_GbufferExpand0 31
-#define PPI_GbufferExpand1 31
+#define PPI_GbufferExpand0 32
+#define PPI_GbufferExpand1 33
 
 #ifdef POST_PROCESS_PROPAGATE_ALPHA_INPUT
 // Arbitrary internal value to fetch local variable propagated alpha stored in the SceneTextureLookup function
