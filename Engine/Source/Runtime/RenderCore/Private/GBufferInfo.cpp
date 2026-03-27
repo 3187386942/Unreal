@@ -116,6 +116,10 @@ TArray < EGBufferSlot > FetchGBufferSlots(bool bHasVelocity, bool bHasTangent, b
 	}
 	NeededSlots.Push(GBS_CustomData);
 
+	// mds GBufferExpand
+	NeededSlots.Push(GBS_GBufferExpand0);
+	NeededSlots.Push(GBS_GBufferExpand1);
+	
 	return NeededSlots;
 }
 
@@ -406,7 +410,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		
 		// mds GBufferExpand
 		TargetGBufferExpand0 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
-		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 2;
 	}
 	else if (Params.bHasTangent)
 	{
@@ -422,7 +426,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		
 		// mds GBufferExpand
 		TargetGBufferExpand0 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
-		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 2;
 	}
 	else
 	{

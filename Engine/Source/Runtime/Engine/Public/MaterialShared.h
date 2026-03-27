@@ -846,14 +846,14 @@ public:
 #endif
 	}
 
-	bool IsSceneTextureUsed(ESceneTextureId TexId) const { return (UsedSceneTextures & (1 << TexId)) != 0; }
+	bool IsSceneTextureUsed(ESceneTextureId TexId) const { return (UsedSceneTextures & (1ull << TexId)) != 0; }
 
 	void SetIsSceneTextureUsed(ESceneTextureId TexId)
 	{
 		// User scene textures aren't added to used bits -- those are stored separately in UserSceneTextureInputs
 		if (TexId < PPI_UserSceneTexture0)
 		{
-			UsedSceneTextures |= (1 << TexId);
+			UsedSceneTextures |= (1ull << TexId);
 		}
 	}
 
