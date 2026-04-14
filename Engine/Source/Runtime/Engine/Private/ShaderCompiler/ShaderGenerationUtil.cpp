@@ -597,6 +597,8 @@ static const FGBufferCompressionInfo GBufferCompressionInfo[] =
 	{ GBC_Packed_Quantized_6,			1, 1, {  6,  0,  0,  0 },  true,  true, TEXT("EncodeQuantize6")        , TEXT("DecodeQuantize6")        },
 	{ GBC_Packed_Quantized_4,			1, 1, {  4,  0,  0,  0 },  true,  true, TEXT("EncodeQuantize4")        , TEXT("DecodeQuantize4")        },
 	{ GBC_Packed_Quantized_2,			1, 1, {  2,  0,  0,  0 },  true,  true, TEXT("EncodeQuantize2")        , TEXT("DecodeQuantize2")        },
+	// GBC_Raw_Float_32_32_32_32
+	{GBC_Raw_Float_32_32_32_32,        4, 4, { 32, 32, 32, 32 },  false, false,TEXT("")						, TEXT("")						 },
 };
 
 static int32 GetGBufferCompressionBitSize(EGBufferCompression Compression)
@@ -712,6 +714,11 @@ static int32 GetBufferNumBits(EGBufferType Format, int32 Channel)
 		break;
 	case GBT_Float_32:
 		Ret = 32;
+	// mds 新增32位浮点四通道（RGBA32F）
+	case GBT_Float_32_32_32_32:
+		Ret = 32;
+		break;
+	// mds 2026.04.14
 	default:
 		check(0);
 		break;
@@ -753,6 +760,11 @@ static int32 GetTargetNumChannels(EGBufferType Type)
 	case GBT_Float_32:
 		Ret = 1;
 		break;
+	// mds 新增32位浮点四通道（RGBA32F）
+	case GBT_Float_32_32_32_32:
+		Ret = 4;
+		break;
+	// mds 2026.04.14
 	default:
 		check(0);
 		break;
@@ -1840,6 +1852,7 @@ static void DetermineUsedMaterialSlots(
 		// mds GBufferExpand
 		Slots[GBS_GBufferExpand0] = GetGBufferSlotUsage(bUseCustomData);
 		Slots[GBS_GBufferExpand1] = GetGBufferSlotUsage(bUseCustomData);
+		// mds 2026.04.14
 	}
 
 	if (Mat.MATERIAL_SHADINGMODEL_SUBSURFACE)
@@ -1894,13 +1907,13 @@ static void DetermineUsedMaterialSlots(
 	{
 		// single layer water uses standard slots
 		SetStandardGBufferSlots(Slots, bWriteEmissive, bHasTangent, bHasVelocity, bWritesVelocity, bHasStaticLighting, bIsSubstrateMaterial, bIsSubstrateNewGBuffer);
+		// mds GBufferExpand
+		Slots[GBS_GBufferExpand0] = GetGBufferSlotUsage(bUseCustomData);
+		Slots[GBS_GBufferExpand1] = GetGBufferSlotUsage(bUseCustomData);
+		// mds 2026.04.14
 		if (Mat.SINGLE_LAYER_WATER_SEPARATED_MAIN_LIGHT)
 		{
 			Slots[GBS_SeparatedMainDirLight] = EGBufferSlotUsage::Written;
-			
-			// mds GBufferExpand
-			Slots[GBS_GBufferExpand0] = GetGBufferSlotUsage(bUseCustomData);
-			Slots[GBS_GBufferExpand1] = GetGBufferSlotUsage(bUseCustomData);
 		}
 	}
 

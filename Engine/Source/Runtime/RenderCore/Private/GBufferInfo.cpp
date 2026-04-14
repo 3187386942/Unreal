@@ -176,6 +176,11 @@ FGBufferBinding FindGBufferBindingByName(const FGBufferInfo& GBufferInfo, const 
 		case GBT_Float_32:
 			PixelFormat = PF_R32_FLOAT;
 			break;
+		// mds 新增RGBA32浮点格式
+		case GBT_Float_32_32_32_32: 
+			PixelFormat = PF_A32B32G32R32F;
+			break;
+		// mds 2026.04.14
 		case GBT_Invalid:
 		default:
 			check(0);
@@ -435,8 +440,9 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	}
 	
 	// mds GBufferExpand
-	Info.Targets[TargetGBufferExpand0].Init(GBT_Float_16_16_16_16, TEXT("GBufferExpand0"), false, true, true, true);
-	Info.Targets[TargetGBufferExpand1].Init(GBT_Float_16_16_16_16, TEXT("GBufferExpand1"), false, true, true, true);
+	Info.Targets[TargetGBufferExpand0].Init(GBT_Float_32_32_32_32, TEXT("GBufferExpand0"), false, true, true, true);
+	Info.Targets[TargetGBufferExpand1].Init(GBT_Float_32_32_32_32, TEXT("GBufferExpand1"), false, true, true, true);
+	// mds 2026.04.14
 	
 	// SLW never uses GBufferD (CustomData) and we want to tightly pack RTVs so there's space for UAVs after the RTV range (D3D11.0 only supports a total of 8 RTVs and UAVs and they must have non-overlapping ranges).
 	TargetSeparatedMainDirLight = TargetGBufferD;
@@ -568,18 +574,19 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	Info.Slots[GBS_CustomData].Packing[3] = FGBufferPacking(TargetGBufferD, 3, 3);
 	
 	// mds GBufferExoand
-	Info.Slots[GBS_GBufferExpand0] = FGBufferItem(GBS_GBufferExpand0, GBC_Raw_Float_16_16_16_16, GBCH_Both);
+	Info.Slots[GBS_GBufferExpand0] = FGBufferItem(GBS_GBufferExpand0, GBC_Raw_Float_32_32_32_32, GBCH_Both);
 	Info.Slots[GBS_GBufferExpand0].Packing[0] = FGBufferPacking(TargetGBufferExpand0, 0, 0);
 	Info.Slots[GBS_GBufferExpand0].Packing[1] = FGBufferPacking(TargetGBufferExpand0, 1, 1);
 	Info.Slots[GBS_GBufferExpand0].Packing[2] = FGBufferPacking(TargetGBufferExpand0, 2, 2);
 	Info.Slots[GBS_GBufferExpand0].Packing[3] = FGBufferPacking(TargetGBufferExpand0, 3, 3);
 	
-	Info.Slots[GBS_GBufferExpand1] = FGBufferItem(GBS_GBufferExpand1, GBC_Raw_Float_16_16_16_16, GBCH_Both);
+	Info.Slots[GBS_GBufferExpand1] = FGBufferItem(GBS_GBufferExpand1, GBC_Raw_Float_32_32_32_32, GBCH_Both);
 	Info.Slots[GBS_GBufferExpand1].Packing[0] = FGBufferPacking(TargetGBufferExpand1, 0, 0);
 	Info.Slots[GBS_GBufferExpand1].Packing[1] = FGBufferPacking(TargetGBufferExpand1, 1, 1);
 	Info.Slots[GBS_GBufferExpand1].Packing[2] = FGBufferPacking(TargetGBufferExpand1, 2, 2);
 	Info.Slots[GBS_GBufferExpand1].Packing[3] = FGBufferPacking(TargetGBufferExpand1, 3, 3);
-
+	// mds 2026.04.14
+	
 	// Special water output
 	if (Params.bHasSingleLayerWaterSeparatedMainLight)
 	{

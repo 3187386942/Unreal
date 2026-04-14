@@ -81,6 +81,10 @@ enum EGBufferCompression
 	GBC_Packed_Quantized_4, // a unorm value, quantized to 4 bits
 	GBC_Packed_Quantized_2, // a unorm value, quantized to 2 bits
 
+	// mds 新增四通道32位浮点（无压缩）
+	GBC_Raw_Float_32_32_32_32, 
+	// mds 2026.04.14
+	
 	GBC_Num
 };
 
@@ -96,6 +100,11 @@ enum EGBufferType
 	GBT_Float_16_16,
 	GBT_Float_16_16_16_16,
 	GBT_Float_32,
+	
+	// mds 新增四通道32位浮点（RGBA32_FLOAT）
+	GBT_Float_32_32_32_32,  
+	// mds 2026.04.14
+	
 	GBT_Num
 };
 

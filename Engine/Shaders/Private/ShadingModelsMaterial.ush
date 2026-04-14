@@ -207,4 +207,5 @@ void SetGBufferForShadingModel(
 	#endif
 	}
 #endif
+	
 }
