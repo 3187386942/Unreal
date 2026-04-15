@@ -73,10 +73,10 @@ SamplerState PostProcessInput_BilinearSampler;
 #define PPI_Anisotropy 30
 #define PPI_IsFirstPerson 31
 
-// mds GBuffer拓展
-#define PPI_GbufferExpand0 32
-#define PPI_GbufferExpand1 33
-// mds 2026.04.14
+// // mds GBuffer拓展
+// #define PPI_GbufferExpand0 32
+// #define PPI_GbufferExpand1 33
+// // mds 2026.04.14
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -375,11 +375,11 @@ float4 SceneTextureLookup(float2 UV, int SceneTextureIndex, bool bFiltered)
 		return ScreenSpaceData.GBuffer.Anisotropy;
 	case PPI_IsFirstPerson:
 		return IsFirstPerson(ScreenSpaceData.GBuffer) ? 1.0f : 0.0f;
-	// mds 采样自定义GBuffer
-	case PPI_GbufferExpand0:
-		return ScreenSpaceData.GBuffer.GbufferExpand0;
-	case PPI_GbufferExpand1:
-		return ScreenSpaceData.GBuffer.GbufferExpand1;
+	// // mds 采样自定义GBuffer
+	// case PPI_GbufferExpand0:
+	// 	return ScreenSpaceData.GBuffer.GbufferExpand0;
+	// case PPI_GbufferExpand1:
+	// 	return ScreenSpaceData.GBuffer.GbufferExpand1;
 #endif
 	default:
 		return float4(0, 0, 0, 0);
