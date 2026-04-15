@@ -400,8 +400,8 @@ struct FGBufferData
 	half3 NormalDistribution;
 	
 	// mds GBufferExpand
-	double4 GBufferExpand0;
-	double4 GBufferExpand1;
+	float4 GBufferExpand0;
+	float4 GBufferExpand1;
 
 	// Curvature for mobile subsurface profile
 	half Curvature;

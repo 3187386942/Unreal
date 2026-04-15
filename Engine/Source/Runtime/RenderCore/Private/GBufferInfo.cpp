@@ -396,7 +396,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		
 		// mds GBufferExpand
 		TargetGBufferExpand0 = TargetGBufferE == -1 ? 5 : TargetGBufferE + 1;
-		TargetGBufferExpand1 = TargetGBufferE == -1 ? 5 : TargetGBufferE + 2;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 2;
 	}
 	else if (Params.bHasVelocity)
 	{
@@ -415,7 +415,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		
 		// mds GBufferExpand
 		TargetGBufferExpand0 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
-		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 2;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 7 : TargetGBufferE + 2;
 	}
 	else if (Params.bHasTangent)
 	{
@@ -431,7 +431,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		
 		// mds GBufferExpand
 		TargetGBufferExpand0 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 1;
-		TargetGBufferExpand1 = TargetGBufferE == -1 ? 6 : TargetGBufferE + 2;
+		TargetGBufferExpand1 = TargetGBufferE == -1 ? 7 : TargetGBufferE + 2;
 	}
 	else
 	{
