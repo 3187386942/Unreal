@@ -386,8 +386,9 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	if (Params.bHasVelocity == 0 && Params.bHasTangent == 0)
 	{
 		TargetGBufferD = 4;
-		Info.Targets[4].Init(GBT_Unorm_8_8_8_8,  TEXT("GBufferD"), false,  true,  true,  true);
-
+		// mds CustomData
+		Info.Targets[4].Init(GBT_Float_32_32_32_32,  TEXT("GBufferD"), false,  true,  true,  true);
+		// mds 2026.04.16
 		if (Params.bHasPrecShadowFactor)
 		{
 			TargetGBufferE = 5;
@@ -405,8 +406,10 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 
 		// note the false for use extra flags for velocity, not quite sure of all the ramifications, but this keeps it consistent with previous usage
 		Info.Targets[4].Init(Params.bUsesVelocityDepth ? GBT_Unorm_16_16_16_16 : (IsAndroidOpenGLESPlatform(Params.ShaderPlatform) ? GBT_Float_16_16 : GBT_Unorm_16_16), TEXT("Velocity"), false, true, true, false);
-		Info.Targets[5].Init(GBT_Unorm_8_8_8_8, TEXT("GBufferD"), false, true, true, true);
-
+		// mds CustomData
+		Info.Targets[5].Init(GBT_Float_32_32_32_32, TEXT("GBufferD"), false, true, true, true);
+		// mds 2026.04.16
+		
 		if (Params.bHasPrecShadowFactor)
 		{
 			TargetGBufferE = 6;
@@ -422,7 +425,9 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 		TargetGBufferF = 4;
 		TargetGBufferD = 5;
 		Info.Targets[4].Init(GBT_Unorm_8_8_8_8,  TEXT("GBufferF"), false,  true,  true,  true);
-		Info.Targets[5].Init(GBT_Unorm_8_8_8_8, TEXT("GBufferD"), false, true, true, true);
+		// mds CustomData
+		Info.Targets[5].Init(GBT_Float_32_32_32_32, TEXT("GBufferD"), false, true, true, true);
+		// mds 2026.04.16
 		if (Params.bHasPrecShadowFactor)
 		{
 			TargetGBufferE = 6;
@@ -567,7 +572,7 @@ FGBufferInfo RENDERCORE_API FetchLegacyGBufferInfo(const FGBufferParams& Params)
 	}
 
 	// GBufferD
-	Info.Slots[GBS_CustomData] = FGBufferItem(GBS_CustomData, GBC_Raw_Unorm_8_8_8_8, GBCH_Both);
+	Info.Slots[GBS_CustomData] = FGBufferItem(GBS_CustomData, GBC_Raw_Float_32_32_32_32, GBCH_Both);
 	Info.Slots[GBS_CustomData].Packing[0] = FGBufferPacking(TargetGBufferD, 0, 0);
 	Info.Slots[GBS_CustomData].Packing[1] = FGBufferPacking(TargetGBufferD, 1, 1);
 	Info.Slots[GBS_CustomData].Packing[2] = FGBufferPacking(TargetGBufferD, 2, 2);

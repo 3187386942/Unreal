@@ -75,9 +75,12 @@ void Main(
 #if USE_GLOBAL_CLIP_PLANE
 	OutGlobalClipPlaneDistance = dot(ResolvedView.GlobalClippingPlane, float4(WorldPosition.xyz, 1));
 #endif
-	#if USE_WORLD_POSITION_EXCLUDING_SHADER_OFFSETS
-		Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz;
-	#endif
+	// mds GBuffer存储像素世界位置
+	// #if USE_WORLD_POSITION_EXCLUDING_SHADER_OFFSETS
+	// 	Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz;
+	// #endif
+	Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz - DFHackToFloat(ResolvedView.PreViewTranslation);
+	// mds 2026.04.16
 
 	Output.FactoryInterpolants = VertexFactoryGetInterpolants(Input, VFIntermediates, VertexParameters);
 

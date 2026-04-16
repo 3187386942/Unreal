@@ -3366,7 +3366,8 @@ float4 SceneTextureLookup(float2 UV, int SceneTextureIndex, bool bFiltered)
 			case PPI_IsFirstPerson:			return IsFirstPerson(ScreenSpaceData.GBuffer) ? 1.0f : 0.0f;
 			
 			// mds GBufferExpand
-			case PPI_CustomData:			return ScreenSpaceData.GBuffer.CustomData;
+			// case PPI_CustomData:			return ScreenSpaceData.GBuffer.CustomData;
+			case PPI_CustomData:			return Texture2DSampleLevel(SceneTexturesStruct.GBufferDTexture, SceneTexturesStruct_GBufferDTextureSampler, UV, 0);
 			case PPI_GbufferExpand0:        return ScreenSpaceData.GBuffer.GBufferExpand0;
 			case PPI_GbufferExpand1:        return ScreenSpaceData.GBuffer.GBufferExpand1;
 		}

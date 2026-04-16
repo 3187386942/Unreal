@@ -81,9 +81,12 @@ struct FSharedBasePassInterpolants
 	float  VertexCloudShadow: TEXCOORD8;
 #endif
 
-#if USE_WORLD_POSITION_EXCLUDING_SHADER_OFFSETS && !IS_NANITE_PASS
+// mds 存储像素世界位置
+// #if USE_WORLD_POSITION_EXCLUDING_SHADER_OFFSETS && !IS_NANITE_PASS
+// 	float3 PixelPositionExcludingWPO : TEXCOORD9;
+// #endif
 	float3 PixelPositionExcludingWPO : TEXCOORD9;
-#endif
+// mds 2026.04.16
 
 #if TRANSLUCENCY_PERVERTEX_LIGHTING_VOLUME
 	float3 AmbientLightingVector : TEXCOORD12;
