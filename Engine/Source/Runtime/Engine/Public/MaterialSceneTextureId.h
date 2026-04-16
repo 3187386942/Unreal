@@ -77,12 +77,13 @@ enum ESceneTextureId : int
 	PPI_IsFirstPerson UMETA(DisplayName = "IsFirstPerson"),
 	
 	// mds GBufferExpand
+	PPI_CustomData UMETA(DisplayName="CustomData"),
 	PPI_GBufferExpand0 UMETA(DisplayName="GBufferExpand0"),
 	PPI_GBufferExpand1 UMETA(DisplayName="GBufferExpand1"),
 	// mds 2026.04.14	
 	
 	/** Used internally for user scene texture inputs.  Later remapped to PPI_PostProcessInput0-6 in the shader via procedurally generated defines. */
-	PPI_UserSceneTexture0 = 34 UMETA(Hidden),
+	PPI_UserSceneTexture0 = 35 UMETA(Hidden),
 	PPI_UserSceneTexture1 UMETA(Hidden),
 	PPI_UserSceneTexture2 UMETA(Hidden),
 	PPI_UserSceneTexture3 UMETA(Hidden),

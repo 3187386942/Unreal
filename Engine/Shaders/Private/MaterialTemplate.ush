@@ -97,8 +97,9 @@
 #define PPI_IsFirstPerson 31
 
 // mds GBufferExpand
-#define PPI_GbufferExpand0 32
-#define PPI_GbufferExpand1 33
+#define PPI_CustomData 32
+#define PPI_GbufferExpand0 33
+#define PPI_GbufferExpand1 34
 
 #ifdef POST_PROCESS_PROPAGATE_ALPHA_INPUT
 // Arbitrary internal value to fetch local variable propagated alpha stored in the SceneTextureLookup function
@@ -3365,9 +3366,9 @@ float4 SceneTextureLookup(float2 UV, int SceneTextureIndex, bool bFiltered)
 			case PPI_IsFirstPerson:			return IsFirstPerson(ScreenSpaceData.GBuffer) ? 1.0f : 0.0f;
 			
 			// mds GBufferExpand
+			case PPI_CustomData:			return ScreenSpaceData.GBuffer.CustomData;
 			case PPI_GbufferExpand0:        return ScreenSpaceData.GBuffer.GBufferExpand0;
 			case PPI_GbufferExpand1:        return ScreenSpaceData.GBuffer.GBufferExpand1;
-			
 		}
 	}
 	#endif // SUBSTRATE_ENABLED

@@ -1850,6 +1850,8 @@ static void DetermineUsedMaterialSlots(
 		SetStandardGBufferSlots(Slots, bWriteEmissive, bHasTangent, bHasVelocity, bWritesVelocity, bHasStaticLighting, bIsSubstrateMaterial, bIsSubstrateNewGBuffer);
 		
 		// mds GBufferExpand
+		Slots[GBS_CustomData] = GetGBufferSlotUsage(bUseCustomData); // 2026.04.16
+		
 		Slots[GBS_GBufferExpand0] = GetGBufferSlotUsage(bUseCustomData);
 		Slots[GBS_GBufferExpand1] = GetGBufferSlotUsage(bUseCustomData);
 		// mds 2026.04.14

@@ -399,6 +399,7 @@ struct FGBufferData
 	// Only needed for SHADINGMODELID_TWOSIDED_FOLIAGE
 	half3 NormalDistribution;
 	
+	
 	// mds GBufferExpand
 	float4 GBufferExpand0;
 	float4 GBufferExpand1;

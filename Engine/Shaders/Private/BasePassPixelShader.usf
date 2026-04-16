@@ -2334,12 +2334,12 @@ void FPixelShaderInOut_MainPS(
 		{ // BasePassInterpolants.PixelPositionExcludingWPO
 			// Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(100, 1001, 0, 1); 
 			Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(2, 1, 1, 1); 
-			Out.MRT[5]  = float4(2, 10, 2, 1); // GBufferExpand0
+			Out.MRT[GBUFFER_HAS_VELOCITY ? 6 : 5]  = float4(2, 10, 2, 1); // GBufferExpand0
 			// Out.MRT[6]  = float4(2, 20, 1, 1); // GBufferExpand1
 		}
 		if (GBuffer.ShadingModelID == SHADINGMODELID_SINGLELAYERWATER)
 		{
-			Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(2, 1, 1, 1); 
+			// Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(2, 1, 1, 1); 
 			// Out.MRT[6]  = float4(2, 2, 1, 1); // GBufferExpand0
 			Out.MRT[7]  = float4(2, 1, 2, 1); // GBufferExpand1
 		}
