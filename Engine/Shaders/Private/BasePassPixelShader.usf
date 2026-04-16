@@ -2333,7 +2333,7 @@ void FPixelShaderInOut_MainPS(
 		if (GBuffer.ShadingModelID == SHADINGMODELID_DEFAULT_LIT)
 		{ // BasePassInterpolants.PixelPositionExcludingWPO
 			// Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(100, 1001, 0, 1); 
-			Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(BasePassInterpolants.PixelPositionExcludingWPO, 1); 
+			Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(BasePassInterpolants.PixelPositionExcludingWPO - DFHackToFloat(ResolvedView.PreViewTranslation), 1); 
 			Out.MRT[GBUFFER_HAS_VELOCITY ? 6 : 5]  = float4(2, 10, 2, 1); // GBufferExpand0
 			// Out.MRT[6]  = float4(2, 20, 1, 1); // GBufferExpand1
 		}
@@ -2341,7 +2341,7 @@ void FPixelShaderInOut_MainPS(
 		{
 			// Out.MRT[GBUFFER_HAS_VELOCITY ? 5 : 4]  = float4(2, 1, 1, 1); 
 			// Out.MRT[6]  = float4(2, 2, 1, 1); // GBufferExpand0
-			Out.MRT[7]  = float4(BasePassInterpolants.PixelPositionExcludingWPO, 1); // GBufferExpand1
+			Out.MRT[7]  = float4(BasePassInterpolants.PixelPositionExcludingWPO - DFHackToFloat(ResolvedView.PreViewTranslation), 1); // GBufferExpand1
 		}
 
 		#if SINGLE_LAYER_WATER_SEPARATED_MAIN_LIGHT

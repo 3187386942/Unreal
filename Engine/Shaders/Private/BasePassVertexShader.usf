@@ -79,7 +79,8 @@ void Main(
 	// #if USE_WORLD_POSITION_EXCLUDING_SHADER_OFFSETS
 	// 	Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz;
 	// #endif
-	Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz - DFHackToFloat(ResolvedView.PreViewTranslation);
+	// Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz - DFHackToFloat(ResolvedView.PreViewTranslation);
+	Output.BasePassInterpolants.PixelPositionExcludingWPO = WorldPositionExcludingWPO.xyz;
 	// mds 2026.04.16
 
 	Output.FactoryInterpolants = VertexFactoryGetInterpolants(Input, VFIntermediates, VertexParameters);
